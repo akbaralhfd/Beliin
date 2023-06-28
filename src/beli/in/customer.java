@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package beli.in;
+
 import javax.swing.table.DefaultTableModel;
 import java.sql.Statement;
 import java.sql.DriverManager;
@@ -14,12 +15,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.List;
 
-
 /**
  *
  * @author Muhammad Akbar
  */
 public class customer extends javax.swing.JFrame {
+
     String url = "jdbc:mysql://localhost:3306/klotingangue";
     String username = "root";
     String password = "";
@@ -30,37 +31,35 @@ public class customer extends javax.swing.JFrame {
     List<String> selectedProducts;
     List<Integer> selectedQuantities;
     int totalHarga;
-    
+
     /**
      *
      * @throws SQLException
      */
     public customer() throws SQLException {
-    initComponents();
-    selectedProducts = new ArrayList<>();
-    selectedQuantities = new ArrayList<>();
-    totalHarga = 0;
-    try {
-        connection = DriverManager.getConnection(url, username, password);
-        statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM products");
+        initComponents();
+        selectedProducts = new ArrayList<>();
+        selectedQuantities = new ArrayList<>();
+        totalHarga = 0;
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM products");
 
-        while (resultSet.next()) {
-            // Baca data dari resultSet
-            String col1Value = resultSet.getString("product_id");
-            String col2Value = resultSet.getString("product_name");
-            String col3Value = resultSet.getString("product_price");
+            while (resultSet.next()) {
+                // Baca data dari resultSet
+                String col1Value = resultSet.getString("product_id");
+                String col2Value = resultSet.getString("product_name");
+                String col3Value = resultSet.getString("product_price");
 
-            // Tambahkan data ke model tabel
-            Object[] rowData = {col1Value, col2Value, col3Value};
-            model.addRow(rowData);
+                // Tambahkan data ke model tabel
+                Object[] rowData = {col1Value, col2Value, col3Value};
+                model.addRow(rowData);
+            }
+        } catch (SQLException e) {
+            System.out.println("Koneksi gagal atau terjadi kesalahan SQL: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        System.out.println("Koneksi gagal atau terjadi kesalahan SQL: " + e.getMessage());
     }
-}
-    
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -179,28 +178,28 @@ public class customer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-                int selectedRow = jTable1.getSelectedRow();
-                if (selectedRow != -1) {
-                    // Mendapatkan data produk dari baris terpilih
-                    String product_id = jTable1.getValueAt(selectedRow, 0).toString();
-                    String product_name = jTable1.getValueAt(selectedRow, 1).toString();
-                    String product_price = jTable1.getValueAt(selectedRow, 2).toString();
-                    int quantity = (int) quantitySpinner.getValue();
-                    
-                    selectedProducts.add(product_name);
-                    selectedQuantities.add(quantity);
-                    
-                    totalHarga += Integer.parseInt(product_price) * quantity;
-                    
-                    showSelectedProducts();
-                    showTotalPrice();
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow != -1) {
+            // Mendapatkan data produk dari baris terpilih
+            String product_id = jTable1.getValueAt(selectedRow, 0).toString();
+            String product_name = jTable1.getValueAt(selectedRow, 1).toString();
+            String product_price = jTable1.getValueAt(selectedRow, 2).toString();
+            int quantity = (int) quantitySpinner.getValue();
+
+            selectedProducts.add(product_name);
+            selectedQuantities.add(quantity);
+
+            totalHarga += Integer.parseInt(product_price) * quantity;
+
+            showSelectedProducts();
+            showTotalPrice();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
-    }
-    public static void main(String args[]) {
+}
+public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -211,16 +210,28 @@ public class customer extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(customer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(customer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(customer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(customer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(customer.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(customer.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(customer.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(customer.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -229,8 +240,11 @@ public class customer extends javax.swing.JFrame {
             public void run() {
                 try {
                     new customer().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(customer.class.getName()).log(Level.SEVERE, null, ex);
+
+} catch (SQLException ex) {
+                    Logger.getLogger(customer.class  
+
+.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });

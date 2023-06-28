@@ -5,7 +5,7 @@
 package beli.in;
 
 import java.awt.event.*;
-import javax.swing.text.;
+import javax.swing.text.*;
 import java.awt.*;
 import javax.swing.JOptionPane;
 import javax.swing.text.LabelView;

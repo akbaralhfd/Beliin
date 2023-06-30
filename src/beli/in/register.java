@@ -222,20 +222,6 @@ public class register extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_alamatActionPerformed
 
-    private void jToggleButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton1MouseClicked
-       // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton1MouseClicked
-
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-if (jToggleButton1.isSelected()) {
-                    passField.setEchoChar((char) 0);
-                    jToggleButton1.setText("Hide");
-                } else {
-                    passField.setEchoChar('*');
-                    jToggleButton1.setText("Show");
-                }
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
-
     private void passFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passFieldFocusGained
                         // TODO add your handling code here:
     }//GEN-LAST:event_passFieldFocusGained
@@ -247,6 +233,20 @@ if (jToggleButton1.isSelected()) {
     private void passFieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passFieldMouseExited
                
     }//GEN-LAST:event_passFieldMouseExited
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        if (jToggleButton1.isSelected()) {
+            passField.setEchoChar((char) 0);
+            jToggleButton1.setText("Hide");
+        } else {
+            passField.setEchoChar('*');
+            jToggleButton1.setText("Show");
+        }
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jToggleButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton1MouseClicked
 
     /**
      * @param args the command line arguments

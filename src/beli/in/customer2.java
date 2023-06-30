@@ -18,10 +18,10 @@ import java.util.List;
  * @author user
  */
 public class customer2 extends javax.swing.JFrame {
-    String url = "jdbc:mysql://localhost:3306/klotingangue";
+    String url = "jdbc:mysql://localhost:3306/beliin";
     String username = "root";
     String password = "";
-    String[] columnNames = {"No.", "Nama Barang", "Harga Barang"};
+    String[] columnNames = {"Id Barang", "Nama Barang", "Harga Barang"};
     DefaultTableModel model = new DefaultTableModel(columnNames, 0);
     Connection connection;
     Statement statement;
@@ -41,13 +41,13 @@ public class customer2 extends javax.swing.JFrame {
         try {
             connection = DriverManager.getConnection(url, username, password);
             statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM products");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM tblbarang");
 
             while (resultSet.next()) {
                 // Baca data dari resultSet
-                String col1Value = resultSet.getString("product_id");
-                String col2Value = resultSet.getString("product_name");
-                String col3Value = resultSet.getString("product_price");
+                String col1Value = resultSet.getString("IDBarang");
+                String col2Value = resultSet.getString("NamaBarang");
+                String col3Value = resultSet.getString("HargaJual");
 
                 // Tambahkan data ke model tabel
                 Object[] rowData = {col1Value, col2Value, col3Value};

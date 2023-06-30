@@ -126,6 +126,11 @@ public class register extends javax.swing.JFrame {
         jLabel1.setText("Nama");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pelanggan", "Pengantar" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Sebagai");
 
@@ -232,6 +237,7 @@ public class register extends javax.swing.JFrame {
         String email = emailField.getText();
         String alamat = alamatField.getText();
         String password = new String(passField.getPassword());
+        String jenis = jComboBox1.getSelectedItem().toString();
 
         // Melakukan validasi data
         if (nama.isEmpty() || noTelepon.isEmpty() || email.isEmpty() || alamat.isEmpty() || password.isEmpty()) {
@@ -286,6 +292,11 @@ public class register extends javax.swing.JFrame {
     private void passFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passFieldActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -222,6 +222,12 @@ public class register extends javax.swing.JFrame {
             emailField.setText("");
             alamatField.setText("");
             passField.setText("");
+            
+            login_page login = new login_page();
+            login.setVisible(true);
+            
+            register.this.setVisible(false);
+            register.this.dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

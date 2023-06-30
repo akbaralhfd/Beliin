@@ -240,7 +240,7 @@ public class register extends javax.swing.JFrame {
         String jenis = jComboBox1.getSelectedItem().toString();
 
         // Melakukan validasi data
-        if (nama.isEmpty() || noTelepon.isEmpty() || email.isEmpty() || alamat.isEmpty() || password.isEmpty()) {
+        if (nama.isEmpty() || noTelepon.isEmpty() || email.isEmpty() || alamat.isEmpty() || password.isEmpty() || jenis.isEmpty()) {
             JOptionPane.showMessageDialog(register.this, "Semua data harus diisi", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             
@@ -250,7 +250,7 @@ public class register extends javax.swing.JFrame {
             emailField.setText("");
             alamatField.setText("");
             passField.setText("");
-            
+            jComboBox1.setSelectedIndex(-1);
             login_page login = new login_page();
             login.setVisible(true);
             

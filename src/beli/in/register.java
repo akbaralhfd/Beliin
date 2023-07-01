@@ -9,7 +9,10 @@ import javax.swing.text.View;
 import java.awt.*;
 import javax.swing.JOptionPane;
 import javax.swing.text.LabelView;
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  *
@@ -238,6 +241,7 @@ public class register extends javax.swing.JFrame {
         String alamat = alamatField.getText();
         String password = new String(passField.getPassword());
         String jenis = jComboBox1.getSelectedItem().toString();
+        String userType = (String) jComboBox1.getSelectedItem();
 
         // Melakukan validasi data
         if (nama.isEmpty() || noTelepon.isEmpty() || email.isEmpty() || alamat.isEmpty() || password.isEmpty() || jenis.isEmpty()) {
@@ -251,6 +255,41 @@ public class register extends javax.swing.JFrame {
             alamatField.setText("");
             passField.setText("");
             jComboBox1.setSelectedIndex(-1);
+            
+               try {
+                // Membuat koneksi ke database
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/beliin", "root", "");
+
+                // Menyiapkan statement SQL untuk memasukkan data ke tabel tblwarga atau tblpengantar
+                String sql;
+                if (userType.equals("Pelanggan")) {
+                    sql = "INSERT INTO tblwarga (NamaWarga, EmailWarga, noTelpWarga, AlamatWarga, PassWarga) VALUES (?, ?, ?, ?, ?)";
+                } else {
+                    sql = "INSERT INTO tblpengantar (NamaPengantar, EmailPengantar, NomorPengantar, AlamatPengantar, PassPengantar) VALUES (?, ?, ?, ?, ?)";
+                }
+
+                // Membuat PreparedStatement untuk mengirim pernyataan SQL ke database
+                PreparedStatement statement = conn.prepareStatement(sql);
+
+                // Mengisi parameter pada pernyataan SQL dengan nilai-nilai yang diperoleh
+                statement.setString(1, nama);
+                statement.setString(2, email);
+                statement.setString(3, noTelepon);
+                statement.setString(4, alamat);
+                statement.setString(5, password);
+
+                // Menjalankan pernyataan SQL untuk memasukkan data ke tabel
+                statement.executeUpdate();
+
+                // Menutup koneksi dan statement
+                statement.close();
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                // Menampilkan pesan kesalahan jika terjadi error saat mengakses database
+                JOptionPane.showMessageDialog(register.this, "Terjadi kesalahan saat mengakses database", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
             login_page login = new login_page();
             login.setVisible(true);
             

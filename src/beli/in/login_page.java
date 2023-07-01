@@ -5,10 +5,7 @@
 package beli.in;
 
 import javax.swing.JOptionPane;
-/**
- *
- * @author Muhammad Akbar
- */
+import java.sql.*;
 public class login_page extends javax.swing.JFrame {
 
     /**
@@ -16,6 +13,7 @@ public class login_page extends javax.swing.JFrame {
      */
     public login_page() {
         initComponents();
+        
     }
 
     /**
@@ -166,20 +164,43 @@ public class login_page extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        try {
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/beliin", "root", "");
+        String pelangganQuery = "SELECT * FROM TblWarga WHERE EmailWarga = ? AND PassWarga = ?";
+        PreparedStatement pelangganStmt = conn.prepareStatement(pelangganQuery);
         String username = jTextField1.getText();
-        String password = new String(jTextField2.getText());
-        
-        boolean Pelanggan = jRadioButton1.isSelected();
-        boolean Pengantar = jRadioButton2.isSelected();
+        String password = jTextField2.getText();
+        pelangganStmt.setString(1, username);
+        pelangganStmt.setString(2, password);
+        ResultSet pelangganRs = pelangganStmt.executeQuery();
+        if (pelangganRs.next()) {
+                String emailWarga = pelangganRs.getString("EmailWarga");
+                String passwordWarga = pelangganRs.getString("PassWarga");
 
-        // Lakukan verifikasi login di sini
-        if (username.equals("admin") && password.equals("admin")) {
-            JOptionPane.showMessageDialog(this, "Login berhasil!");
+                System.out.println("Warga Email: " + emailWarga);
+                System.out.println("Warga Password: " + passwordWarga);
+                JOptionPane.showMessageDialog(this, "Login Pelanggan berhasil!");
         } else {
-            JOptionPane.showMessageDialog(this, "Username atau password salah!");
-            jTextField1.setText("");
-            jTextField2.setText("");
+            String pengantarQuery = "SELECT * FROM TblPengantar WHERE EmailPengantar = ? AND PassPengantar = ?";
+            PreparedStatement pengantarStmt = conn.prepareStatement(pengantarQuery);
+            pengantarStmt.setString(1, username);
+            pengantarStmt.setString(2, password);
+            ResultSet pengantarRs = pengantarStmt.executeQuery();
+            if (pengantarRs.next()) {
+                    // Login Pengantar berhasil
+                    String emailPengantar = pengantarRs.getString("EmailPengantar");
+                    String passwordPengantar = pengantarRs.getString("PassPengantar");
+
+                    System.out.println("Pengantar Email: " + emailPengantar);
+                    System.out.println("Pengantar Password: " + passwordPengantar);
+
+                    JOptionPane.showMessageDialog(this, "Login Pengantar berhasil!");
+                }else{JOptionPane.showMessageDialog(this, "Username atau password salah!");}
+                    pengantarRs.close();
+                    pengantarStmt.close();
+                    conn.close();
+        }}catch(SQLException e) {
+            e.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

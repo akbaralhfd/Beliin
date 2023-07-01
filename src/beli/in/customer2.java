@@ -181,7 +181,7 @@ public class customer2 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    }
+    
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
     selectedProducts.clear();
     selectedQuantities.clear();
@@ -193,13 +193,13 @@ public class customer2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        int selectedRow = jTable1.getSelectedRow();
+        int selectedRow = jTable2.getSelectedRow();
         if (selectedRow != -1) {
             // Mendapatkan data produk dari baris terpilih
-            String product_id = jTable1.getValueAt(selectedRow, 0).toString();
-            String product_name = jTable1.getValueAt(selectedRow, 1).toString();
-            String product_price = jTable1.getValueAt(selectedRow, 2).toString();
-            int quantity = (int) quantitySpinner.getValue();
+            String product_id = jTable2.getValueAt(selectedRow, 0).toString();
+            String product_name = jTable2.getValueAt(selectedRow, 1).toString();
+            String product_price = jTable2.getValueAt(selectedRow, 2).toString();
+            int quantity = (int) quantitySpinner1.getValue();
 
             selectedProducts.add(product_name);
             selectedQuantities.add(quantity);
@@ -270,6 +270,6 @@ private void showSelectedProducts() {
 
     private void showTotalPrice() {
         // Menampilkan harga total pada label "Total Harga"
-        jLabel2.setText(" " + totalHarga);
+        jLabel4.setText(" " + totalHarga);
     }
 }

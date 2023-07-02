@@ -18,10 +18,10 @@ import java.util.List;
  * @author user
  */
 public class customer2 extends javax.swing.JFrame {
-    String url = "jdbc:mysql://localhost:3306/klotingangue";
+    String url = "jdbc:mysql://localhost:3306/beliin";
     String username = "root";
     String password = "";
-    String[] columnNames = {"No.", "Nama Barang", "Harga Barang"};
+    String[] columnNames = {"Id Barang", "Nama Barang", "Harga Barang"};
     DefaultTableModel model = new DefaultTableModel(columnNames, 0);
     Connection connection;
     Statement statement;
@@ -41,13 +41,13 @@ public class customer2 extends javax.swing.JFrame {
         try {
             connection = DriverManager.getConnection(url, username, password);
             statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM products");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM tblbarang");
 
             while (resultSet.next()) {
                 // Baca data dari resultSet
-                String col1Value = resultSet.getString("product_id");
-                String col2Value = resultSet.getString("product_name");
-                String col3Value = resultSet.getString("product_price");
+                String col1Value = resultSet.getString("IDBarang");
+                String col2Value = resultSet.getString("NamaBarang");
+                String col3Value = resultSet.getString("HargaJual");
 
                 // Tambahkan data ke model tabel
                 Object[] rowData = {col1Value, col2Value, col3Value};
@@ -69,9 +69,9 @@ public class customer2 extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable2 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        quantitySpinner = new javax.swing.JSpinner();
+        quantitySpinner1 = new javax.swing.JSpinner();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -81,17 +81,17 @@ public class customer2 extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(102, 204, 255));
 
-        jTable1.setModel(model);
-        jTable1.setShowHorizontalLines(true);
-        jTable1.setShowVerticalLines(true);
-        jScrollPane2.setViewportView(jTable1);
+        jTable2.setModel(model);
+        jTable2.setShowHorizontalLines(true);
+        jTable2.setShowVerticalLines(true);
+        jScrollPane2.setViewportView(jTable2);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(204, 255, 255));
         jLabel3.setText("Harga Total: ");
 
-        quantitySpinner.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        quantitySpinner.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        quantitySpinner1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        quantitySpinner1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jButton4.setText("CHECK OUT!");
         jButton4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -131,7 +131,7 @@ public class customer2 extends javax.swing.JFrame {
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(quantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(quantitySpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(68, 68, 68))
@@ -146,7 +146,7 @@ public class customer2 extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(quantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(quantitySpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton6))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -193,13 +193,13 @@ public class customer2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        int selectedRow = jTable1.getSelectedRow();
+        int selectedRow = jTable2.getSelectedRow();
         if (selectedRow != -1) {
             // Mendapatkan data produk dari baris terpilih
-            String product_id = jTable1.getValueAt(selectedRow, 0).toString();
-            String product_name = jTable1.getValueAt(selectedRow, 1).toString();
-            String product_price = jTable1.getValueAt(selectedRow, 2).toString();
-            int quantity = (int) quantitySpinner.getValue();
+            String product_id = jTable2.getValueAt(selectedRow, 0).toString();
+            String product_name = jTable2.getValueAt(selectedRow, 1).toString();
+            String product_price = jTable2.getValueAt(selectedRow, 2).toString();
+            int quantity = (int) quantitySpinner1.getValue();
 
             selectedProducts.add(product_name);
             selectedQuantities.add(quantity);
@@ -255,8 +255,8 @@ public class customer2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JSpinner quantitySpinner;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JSpinner quantitySpinner1;
     // End of variables declaration//GEN-END:variables
 private void showSelectedProducts() {
         // Menampilkan daftar produk terpilih beserta jumlahnya pada console

@@ -4,6 +4,7 @@
  */
 package beli.in;
 
+import java.awt.Font;
 import javax.swing.JOptionPane;
 import java.sql.*;
 public class login_page extends javax.swing.JFrame {
@@ -71,6 +72,12 @@ public class login_page extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel5MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel5MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel5MouseExited(evt);
+            }
         });
 
         jToggleButton1.setText("👀");
@@ -94,15 +101,12 @@ public class login_page extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(108, 108, 108)
-                        .addComponent(jButton1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
@@ -115,12 +119,15 @@ public class login_page extends javax.swing.JFrame {
                                 .addGap(26, 26, 26)
                                 .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(57, 57, 57)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(107, 107, 107)
+                                .addComponent(jButton1)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -128,6 +135,7 @@ public class login_page extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(47, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -144,12 +152,11 @@ public class login_page extends javax.swing.JFrame {
                             .addComponent(jRadioButton2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
-                        .addGap(2, 2, 2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5)))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(62, 62, 62))
+                            .addComponent(jLabel5))))
+                .addGap(58, 58, 58))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -173,44 +180,61 @@ public class login_page extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
         try {
         Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/beliin", "root", "");
-        String pelangganQuery = "SELECT * FROM TblWarga WHERE EmailWarga = ? AND PassWarga = ?";
-        PreparedStatement pelangganStmt = conn.prepareStatement(pelangganQuery);
         String username = jTextField1.getText();
         String password = passField.getText();
-        pelangganStmt.setString(1, username);
-        pelangganStmt.setString(2, password);
-        ResultSet pelangganRs = pelangganStmt.executeQuery();
-        if (pelangganRs.next()) {
+
+        if (jRadioButton1.isSelected()) {
+            String pelangganQuery = "SELECT * FROM TblWarga WHERE EmailWarga = ? AND PassWarga = ?";
+            PreparedStatement pelangganStmt = conn.prepareStatement(pelangganQuery);
+            pelangganStmt.setString(1, username);
+            pelangganStmt.setString(2, password);
+            ResultSet pelangganRs = pelangganStmt.executeQuery();
+
+            if (pelangganRs.next()) {
                 String emailWarga = pelangganRs.getString("EmailWarga");
                 String passwordWarga = pelangganRs.getString("PassWarga");
 
                 System.out.println("Warga Email: " + emailWarga);
                 System.out.println("Warga Password: " + passwordWarga);
                 JOptionPane.showMessageDialog(this, "Login Pelanggan berhasil!");
-        } else {
+            } else {
+                JOptionPane.showMessageDialog(this, "Username atau password salah!");
+            }
+
+            pelangganRs.close();
+            pelangganStmt.close();
+        } else if (jRadioButton2.isSelected()) {
             String pengantarQuery = "SELECT * FROM TblPengantar WHERE EmailPengantar = ? AND PassPengantar = ?";
             PreparedStatement pengantarStmt = conn.prepareStatement(pengantarQuery);
             pengantarStmt.setString(1, username);
             pengantarStmt.setString(2, password);
             ResultSet pengantarRs = pengantarStmt.executeQuery();
-            if (pengantarRs.next()) {
-                    // Login Pengantar berhasil
-                    String emailPengantar = pengantarRs.getString("EmailPengantar");
-                    String passwordPengantar = pengantarRs.getString("PassPengantar");
 
-                    System.out.println("Pengantar Email: " + emailPengantar);
-                    System.out.println("Pengantar Password: " + passwordPengantar);
-                    
-                    JOptionPane.showMessageDialog(this, "Login Pengantar berhasil!");
-                }else{JOptionPane.showMessageDialog(this, "Username atau password salah!");}
-                    pengantarRs.close();
-                    pengantarStmt.close();
-                    conn.close();
-        }}catch(SQLException e) {
-            e.printStackTrace();
+            if (pengantarRs.next()) {
+                String emailPengantar = pengantarRs.getString("EmailPengantar");
+                String passwordPengantar = pengantarRs.getString("PassPengantar");
+
+                System.out.println("Pengantar Email: " + emailPengantar);
+                System.out.println("Pengantar Password: " + passwordPengantar);
+
+                JOptionPane.showMessageDialog(this, "Login Pengantar berhasil!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Username atau password salah!");
+            }
+
+            pengantarRs.close();
+            pengantarStmt.close();
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih jenis login terlebih dahulu!");
         }
+
+        conn.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -236,6 +260,14 @@ public class login_page extends javax.swing.JFrame {
             jToggleButton1.setText("Show");
         }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
+jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getStyle() | Font.BOLD));        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel5MouseEntered
+
+    private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
+jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getStyle() & ~Font.BOLD));        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel5MouseExited
 
     /**
      * @param args the command line arguments

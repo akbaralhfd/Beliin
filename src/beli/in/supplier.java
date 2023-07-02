@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Administrator
  */
 public class supplier extends javax.swing.JFrame {
-    String url = "jdbc:mysql://localhost:3306/klotingangue";
+    String url = "jdbc:mysql://localhost:3306/beliin";
     String username = "root";
     String password = "";
     String[] columnNames = {"IDBarang", "Nama Barang", "Jumlah Barang"};
@@ -82,9 +83,19 @@ public class supplier extends javax.swing.JFrame {
 
         jButton1.setText("TIDAK READY");
         jButton1.setBorder(null);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("READY");
         jButton2.setBorder(null);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jTable2.setModel(model);
         jTable2.setShowHorizontalLines(true);
@@ -158,6 +169,38 @@ public class supplier extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+     int selectedRow = jTable2.getSelectedRow();
+    if (selectedRow != -1) {
+        String idBarang = jTable2.getValueAt(selectedRow, 0).toString();
+        String namaBarang = jTable2.getValueAt(selectedRow, 1).toString();
+        String jumlahBarang = jTable2.getValueAt(selectedRow, 2).toString();
+
+        JOptionPane.showOptionDialog(this,
+                "ID Barang: " + idBarang + "\n"
+                + "Nama Barang: " + namaBarang + "\n"
+                + "Jumlah Barang: " + jumlahBarang + "\n\n"
+                + "Apakah anda yakin ingin mengirim barang yang terpilih?",
+                "Konfirmasi",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                new Object[]{"Yes", "No"},
+                null);
+    } else {
+        JOptionPane.showMessageDialog(this, "TOLONG PILIH BARANGNYA TERLEBIH DAHULU", "Peringatan", JOptionPane.WARNING_MESSAGE);
+    }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    if (selectedProducts.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "TOLONG PILIH BARANGNYA TERLEBIH DAHULU", "Peringatan", JOptionPane.WARNING_MESSAGE);
+    } else {
+        JOptionPane.showMessageDialog(this, "Barang akan dibatalkan.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        System.out.println("TIDAK READY button clicked");
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

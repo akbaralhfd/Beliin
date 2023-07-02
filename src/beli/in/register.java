@@ -256,45 +256,56 @@ public class register extends javax.swing.JFrame {
             passField.setText("");
             jComboBox1.setSelectedIndex(-1);
             
-               try {
-                // Membuat koneksi ke database
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/beliin", "root", "");
+              try {
+    // Membuat koneksi ke database
+    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/beliin", "root", "");
 
-                // Menyiapkan statement SQL untuk memasukkan data ke tabel tblwarga atau tblpengantar
-                String sql;
-                if (userType.equals("Pelanggan")) {
-                    sql = "INSERT INTO tblwarga (NamaWarga, EmailWarga, noTelpWarga, AlamatWarga, PassWarga) VALUES (?, ?, ?, ?, ?)";
-                } else {
-                    sql = "INSERT INTO tblpengantar (NamaPengantar, EmailPengantar, NomorPengantar, AlamatPengantar, PassPengantar) VALUES (?, ?, ?, ?, ?)";
-                }
+    // Menyiapkan statement SQL untuk memasukkan data ke tabel tblwarga atau tblpengantar
+    String sql1;
+    String sql2;
+    String sql3;
+    if (userType.equals("Pelanggan")) {
+        sql1 = "INSERT INTO tblwarga (NamaWarga, EmailWarga, noTelpWarga, AlamatWarga, PassWarga, IDWarga) VALUES (?, ?, ?, ?, ?, 10000)";
+        sql2 = "INSERT INTO tblkeperluan (IDKeperluan) VALUES (?)";
+        PreparedStatement statement1 = conn.prepareStatement(sql1);
+        statement1.setString(1, nama);
+        statement1.setString(2, email);
+        statement1.setString(3, noTelepon);
+        statement1.setString(4, alamat);
+        statement1.setString(5, password);
+        statement1.executeUpdate();
+        statement1.close();
 
-                // Membuat PreparedStatement untuk mengirim pernyataan SQL ke database
-                PreparedStatement statement = conn.prepareStatement(sql);
+        PreparedStatement statement2 = conn.prepareStatement(sql2);
+        statement2.setInt(1, 30000);
+        statement2.executeUpdate();
+        statement2.close();
+    } else {
+        sql3 = "INSERT INTO tblpengantar (NamaPengantar, EmailPengantar, NomorPengantar, AlamatPengantar, PassPengantar, IDPengantar) VALUES (?, ?, ?, ?, ?, 20000)";
+        PreparedStatement statement3 = conn.prepareStatement(sql3);
+        statement3.setString(1, nama);
+        statement3.setString(2, email);
+        statement3.setString(3, noTelepon);
+        statement3.setString(4, alamat);
+        statement3.setString(5, password);
+        statement3.executeUpdate();
+        statement3.close();
+    }
 
-                // Mengisi parameter pada pernyataan SQL dengan nilai-nilai yang diperoleh
-                statement.setString(1, nama);
-                statement.setString(2, email);
-                statement.setString(3, noTelepon);
-                statement.setString(4, alamat);
-                statement.setString(5, password);
+    // Menutup koneksi
+    conn.close();
+} catch (SQLException ex) {
+    ex.printStackTrace();
+    // Menampilkan pesan kesalahan jika terjadi error saat mengakses database
+    JOptionPane.showMessageDialog(register.this, "Terjadi kesalahan saat mengakses database", "Error", JOptionPane.ERROR_MESSAGE);
+}
 
-                // Menjalankan pernyataan SQL untuk memasukkan data ke tabel
-                statement.executeUpdate();
 
-                // Menutup koneksi dan statement
-                statement.close();
-                conn.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-                // Menampilkan pesan kesalahan jika terjadi error saat mengakses database
-                JOptionPane.showMessageDialog(register.this, "Terjadi kesalahan saat mengakses database", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            
-            login_page login = new login_page();
-            login.setVisible(true);
-            
-            register.this.setVisible(false);
-            register.this.dispose();
+login_page login = new login_page();
+login.setVisible(true);
+
+register.this.setVisible(false);
+register.this.dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

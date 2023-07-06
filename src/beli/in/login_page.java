@@ -44,12 +44,12 @@ public class login_page extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
 
-        jLabel1.setText("Username");
+        jLabel1.setText("Email");
 
         jLabel2.setText("Password");
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/beli/in/Beli.in.jpg"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Documents\\GitHub\\Beliin\\src\\beli\\in\\Beli.in.jpg"));
 
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -128,7 +128,7 @@ public class login_page extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,4 +319,24 @@ jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getStyle() & ~Fon
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JPasswordField passField;
     // End of variables declaration//GEN-END:variables
+    public static int IDWarga;
+    public static void fetchIDWargaFromDatabase() {
+        String url = "jdbc:mysql://localhost:3306/beliin";
+        String username = "root";
+        String password = "";
+
+        try {
+            Connection connection = DriverManager.getConnection(url, username, password);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT IDWarga FROM TblWarga");
+
+            if (resultSet.next()) {
+                IDWarga = resultSet.getInt("IDWarga");
+            }resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

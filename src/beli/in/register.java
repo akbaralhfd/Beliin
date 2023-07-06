@@ -256,44 +256,43 @@ public class register extends javax.swing.JFrame {
             passField.setText("");
             jComboBox1.setSelectedIndex(-1);
             
-              try {
-    // Membuat koneksi ke database
-    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/beliin", "root", "");
+            try {
+    
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/beliin", "root", "");
 
-    // Menyiapkan statement SQL untuk memasukkan data ke tabel tblwarga atau tblpengantar
-    String sql1;
-    String sql2;
-    String sql3;
-    if (userType.equals("Pelanggan")) {
-        sql1 = "INSERT INTO tblwarga (NamaWarga, EmailWarga, noTelpWarga, AlamatWarga, PassWarga, IDWarga) VALUES (?, ?, ?, ?, ?, 10000)";
-        sql2 = "INSERT INTO tblkeperluan (IDKeperluan) VALUES (?)";
-        PreparedStatement statement1 = conn.prepareStatement(sql1);
-        statement1.setString(1, nama);
-        statement1.setString(2, email);
-        statement1.setString(3, noTelepon);
-        statement1.setString(4, alamat);
-        statement1.setString(5, password);
-        statement1.executeUpdate();
-        statement1.close();
+            // Menyiapkan statement SQL untuk memasukkan data ke tabel tblwarga atau tblpengantar
+            String sql1;
+            String sql3;
+            if (userType.equals("Pelanggan")) {
+                sql1 = "INSERT INTO tblwarga (NamaWarga, EmailWarga, noTelpWarga, AlamatWarga, PassWarga) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement statement1 = conn.prepareStatement(sql1);
+                statement1.setString(1, nama);
+                statement1.setString(2, email);
+                statement1.setString(3, noTelepon);
+                statement1.setString(4, alamat);
+                statement1.setString(5, password);
+                statement1.executeUpdate();
+                statement1.close();
 
-        PreparedStatement statement2 = conn.prepareStatement(sql2);
-        statement2.setInt(1, 30000);
-        statement2.executeUpdate();
-        statement2.close();
-    } else {
-        sql3 = "INSERT INTO tblpengantar (NamaPengantar, EmailPengantar, NomorPengantar, AlamatPengantar, PassPengantar, IDPengantar) VALUES (?, ?, ?, ?, ?, 20000)";
-        PreparedStatement statement3 = conn.prepareStatement(sql3);
-        statement3.setString(1, nama);
-        statement3.setString(2, email);
-        statement3.setString(3, noTelepon);
-        statement3.setString(4, alamat);
-        statement3.setString(5, password);
-        statement3.executeUpdate();
-        statement3.close();
-    }
+            } else {
+                sql3 = "INSERT INTO tblpengantar (NamaPengantar, EmailPengantar, NomorPengantar, AlamatPengantar, PassPengantar) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement statement3 = conn.prepareStatement(sql3);
+                statement3.setString(1, nama);
+                statement3.setString(2, email);
+                statement3.setString(3, noTelepon);
+                statement3.setString(4, alamat);
+                statement3.setString(5, password);
+                statement3.executeUpdate();
+                statement3.close();
+            }
 
     // Menutup koneksi
     conn.close();
+    JOptionPane.showMessageDialog(register.this, "Berhasil register!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            login_page login = new login_page();
+            login.setVisible(true);
+            register.this.setVisible(false);
+            register.this.dispose();
 } catch (SQLException ex) {
     ex.printStackTrace();
     // Menampilkan pesan kesalahan jika terjadi error saat mengakses database

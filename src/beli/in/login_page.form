@@ -98,7 +98,7 @@
                           <Component id="jLabel5" min="-2" pref="37" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="17" max="32767" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -142,7 +142,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Username"/>
+            <Property name="text" type="java.lang.String" value="Email"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
@@ -155,8 +155,8 @@
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/beli/in/Beli.in.jpg"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.ImageIcon(&quot;C:\\Users\\user\\Documents\\GitHub\\Beliin\\src\\beli\\in\\Beli.in.jpg&quot;)" type="code"/>
             </Property>
           </Properties>
         </Component>
